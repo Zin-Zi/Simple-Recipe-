@@ -16,6 +16,9 @@ export interface Recipe {
   prepTime: string;
   createdAt: number;
   tags: string[];
+  isFavorite?: boolean;
+  servings?: number;
+  completedSteps?: number[];
 }
 
 export interface UserSettings {

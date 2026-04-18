@@ -68,7 +68,10 @@ const Settings: React.FC = () => {
               <div className="flex gap-4">
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="flex-1 py-4 border border-current border-opacity-10 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-current hover:bg-opacity-5 transition-all"
+                  className={cn(
+                    "flex-1 py-4 border border-current border-opacity-10 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all",
+                    theme.text.includes('white') ? 'hover:bg-white/5' : 'hover:bg-black/5'
+                  )}
                 >
                   Cancel
                 </button>
@@ -142,7 +145,7 @@ const Settings: React.FC = () => {
               onClick={() => setContextSetting('fontSize', size)}
               className={cn(
                 "flex-1 p-4 text-[10px] uppercase font-bold tracking-widest transition-all",
-                settings.fontSize === size ? theme.accent : "hover:bg-current hover:bg-opacity-5"
+                settings.fontSize === size ? theme.accent : (theme.text.includes('white') ? 'hover:bg-white/5' : 'hover:bg-black/5')
               )}
             >
               {size}

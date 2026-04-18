@@ -29,6 +29,7 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
   const [ingredients, setIngredients] = useState<Ingredient[]>(initialRecipe?.ingredients || []);
   const [instructions, setInstructions] = useState<string[]>(initialRecipe?.instructions || ['']);
   const [image, setImage] = useState<string | null>(initialRecipe?.image || null);
+  const [servings, setServings] = useState(initialRecipe?.servings || 2);
   const [tags, setTags] = useState<string[]>(initialRecipe?.tags || []);
   const [tagInput, setTagInput] = useState('');
 
@@ -73,6 +74,7 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
       description,
       category,
       prepTime,
+      servings,
       ingredients,
       instructions: instructions.filter(i => i.trim()),
       image: image || undefined,
@@ -179,6 +181,15 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
             onChange={(e) => setPrepTime(e.target.value)}
           />
         </div>
+        <div>
+          <label className="text-[10px] uppercase font-black opacity-40 mb-2 block tracking-widest">Base Servings</label>
+          <input
+            type="number"
+            className="w-full bg-transparent p-3 rounded-xl border border-current border-opacity-20 font-bold"
+            value={servings}
+            onChange={(e) => setServings(parseInt(e.target.value) || 1)}
+          />
+        </div>
       </div>
 
       {/* Ingredients Section */}
@@ -207,7 +218,7 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
                 exit={{ opacity: 0, scale: 0.95 }}
                 className={cn(
                   "flex flex-col gap-2 p-5 rounded-3xl border transition-all",
-                  theme.id === 'frosted' ? 'glass-panel !border-white/10' : 'bg-current bg-opacity-[0.03] border-current border-opacity-5'
+                  theme.id === 'frosted' ? 'glass-panel !border-white/10' : (theme.text.includes('white') ? 'bg-white/5 border-current border-opacity-5' : 'bg-black/5 border-current border-opacity-5')
                 )}
               >
                 <div className="flex gap-2">
@@ -326,7 +337,10 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
       )}>
         <button
           onClick={onCancel}
-          className="flex-1 py-4 px-6 rounded-2xl border border-current border-opacity-20 font-bold uppercase tracking-widest text-[10px] hover:bg-current hover:bg-opacity-5 transition-all"
+          className={cn(
+            "flex-1 py-4 px-6 rounded-2xl border border-current border-opacity-20 font-bold uppercase tracking-widest text-[10px] transition-all",
+            theme.text.includes('white') ? 'hover:bg-white/5' : 'hover:bg-black/5'
+          )}
         >
           {t.cancel}
         </button>

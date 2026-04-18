@@ -103,7 +103,7 @@ export const THEMES: Record<string, Theme> = {
   frosted: {
     id: 'frosted',
     name: 'Frosted Glass',
-    bg: 'bg-black',
+    bg: 'frosted-bg',
     text: 'text-white',
     accent: 'bg-white/90 text-black hover:bg-white',
     border: 'border-white/5',
