@@ -91,7 +91,7 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
   };
 
   return (
-    <div className="space-y-8 pb-32">
+    <div className="space-y-8">
       {/* Visual Header */}
       <div className={cn("relative h-64 w-full rounded-3xl overflow-hidden border border-dashed border-current transition-opacity", theme.id === 'frosted' ? 'glass-panel !border-white/20' : 'opacity-40 hover:opacity-100')}>
         {image ? (
@@ -332,8 +332,8 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
 
       {/* Actions */}
       <div className={cn(
-        "fixed bottom-0 left-0 right-0 p-6 pt-4 pb-8 flex gap-4 z-50 backdrop-blur-xl border-t transition-all",
-        theme.id === 'frosted' ? 'glass-panel !rounded-none !border-white/10' : `${theme.bg} ${theme.border} bg-opacity-90`
+        "mt-16 p-6 pb-12 flex gap-4 border-t transition-all",
+        theme.id === 'frosted' ? 'glass-panel !border-white/10' : `${theme.bg} ${theme.border}`
       )}>
         <button
           onClick={onCancel}
