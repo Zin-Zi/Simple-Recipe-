@@ -49,7 +49,7 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { id: Math.random().toString(), name: '', amount: 0, unit: 'g' }]);
+    setIngredients([...ingredients, { id: Math.random().toString(), name: '', amount: undefined as any, unit: 'g' }]);
   };
 
   const handleUpdateIngredient = (id: string, field: keyof Ingredient, value: any) => {
@@ -75,7 +75,7 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
       category,
       prepTime,
       servings,
-      ingredients,
+      ingredients: ingredients.map(ing => ({ ...ing, amount: Number(ing.amount) || 0 })),
       instructions: instructions.filter(i => i.trim()),
       image: image || undefined,
       createdAt: initialRecipe?.createdAt || Date.now(),
@@ -93,15 +93,15 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
   return (
     <div className="space-y-8">
       {/* Visual Header */}
-      <div className={cn("relative h-64 w-full rounded-3xl overflow-hidden border border-dashed border-current transition-opacity", theme.id === 'frosted' ? 'glass-panel !border-white/20' : 'opacity-40 hover:opacity-100')}>
+      <div className={cn("relative h-32 w-full max-w-[200px] mx-auto rounded-3xl overflow-hidden border border-dashed border-current transition-opacity", theme.id === 'frosted' ? 'glass-panel !border-white/20' : 'opacity-40 hover:opacity-100')}>
         {image ? (
           <img src={image} className="w-full h-full object-cover" />
         ) : (
           <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group">
-            <ChefHat className="w-16 h-16 mb-4 opacity-10 group-hover:opacity-40 transition-opacity" strokeWidth={1} />
-            <div className="flex flex-col items-center">
-              <ImageIcon className="w-6 h-6 mb-2 opacity-30" />
-              <span className="text-[10px] uppercase font-bold tracking-widest opacity-40">{initialRecipe ? t.editRecipe : t.addRecipe} Image</span>
+            <ChefHat className="w-10 h-10 mb-2 opacity-10 group-hover:opacity-40 transition-opacity" strokeWidth={1} />
+            <div className="flex flex-col items-center text-center px-4">
+              <ImageIcon className="w-4 h-4 mb-1 opacity-30" />
+              <span className="text-[8px] uppercase font-bold tracking-widest opacity-40 leading-tight">Add Image</span>
             </div>
             <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
           </label>
@@ -243,10 +243,10 @@ const RecipeForm: React.FC<{ initialRecipe?: Recipe; onCancel: () => void; onSuc
                       type="number"
                       placeholder="Qty"
                       className="w-full bg-transparent border-b border-current border-opacity-10 p-2 focus:border-opacity-100 outline-none font-mono"
-                      value={isNaN(ing.amount) ? '' : ing.amount}
+                      value={ing.amount === undefined || ing.amount === 0 ? '' : ing.amount}
                       onChange={(e) => {
-                        const val = parseFloat(e.target.value);
-                        handleUpdateIngredient(ing.id, 'amount', isNaN(val) ? 0 : val);
+                        const val = e.target.value === '' ? undefined : parseFloat(e.target.value);
+                        handleUpdateIngredient(ing.id, 'amount', val);
                       }}
                     />
                     <span className="text-[10px] opacity-60 font-bold uppercase block mt-1 tracking-widest">Amount</span>

@@ -113,14 +113,22 @@ const AppContent: React.FC = () => {
       {/* Bottom Nav */}
       {view === 'dashboard' && (
         <nav className={`fixed bottom-0 left-0 right-0 p-4 border-t ${theme.border} ${theme.id === 'frosted' ? 'glass-panel !border-white/10' : 'backdrop-blur-xl bg-opacity-70'} flex justify-around items-center z-30`}>
-          <button onClick={() => setView('dashboard')} className="flex flex-col items-center gap-1">
+          <button onClick={() => setView('dashboard')} className="flex flex-col items-center gap-1 transition-all">
             <LayoutDashboard className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase tracking-widest">{t.dashboard}</span>
           </button>
-          <div className="w-12 h-12 bg-current rounded-full flex items-center justify-center -mt-8 shadow-xl border-4 border-white dark:border-black" onClick={() => setView('form')}>
-            <Plus className="w-6 h-6 invert" />
-          </div>
-          <button onClick={() => setView('settings')} className="flex flex-col items-center gap-1 opacity-50">
+          
+          <button 
+            onClick={() => setView('form')} 
+            className={cn(
+              "w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all active:scale-95 group",
+              theme.accent
+            )}
+          >
+            <Plus className="w-6 h-6" />
+          </button>
+
+          <button onClick={() => setView('settings')} className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-all">
             <SettingsIcon className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase tracking-widest">{t.settings}</span>
           </button>

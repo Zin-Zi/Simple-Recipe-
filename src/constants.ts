@@ -108,5 +108,32 @@ export const THEMES: Record<string, Theme> = {
     accent: 'bg-white/90 text-black hover:bg-white',
     border: 'border-white/5',
     font: 'font-grotesk',
+  },
+  sunset: {
+    id: 'sunset',
+    name: 'Sunset Glow',
+    bg: 'sunset-bg',
+    text: 'text-white',
+    accent: 'bg-orange-500/90 text-white hover:bg-orange-500',
+    border: 'border-orange-500/10',
+    font: 'font-sans',
+  },
+  ocean: {
+    id: 'ocean',
+    name: 'Deep Ocean',
+    bg: 'ocean-bg',
+    text: 'text-white',
+    accent: 'bg-cyan-500/90 text-black hover:bg-cyan-500',
+    border: 'border-cyan-500/10',
+    font: 'font-outfit',
+  },
+  midnight: {
+    id: 'midnight',
+    name: 'Midnight Glass',
+    bg: 'midnight-bg',
+    text: 'text-white',
+    accent: 'bg-purple-600/90 text-white hover:bg-purple-600',
+    border: 'border-purple-600/10',
+    font: 'font-grotesk',
   }
 };
